@@ -1,10 +1,6 @@
 <?php
-  	$host = "localhost";
-  	$user = "root";
-  	$pass = "";
-  	$banco = "aventuras";
-  	$conexao = mysqli_connect( $host, $user, $pass ) or die( mysqli_connect_error() );
-  	mysqli_select_db( $conexao, $banco ) or die( mysqli_connect_error() );
+	/* Connect and Configs */
+	include_once ( 'inc/config.php' );
 ?>
 
 <html>
