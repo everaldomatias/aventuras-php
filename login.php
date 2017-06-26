@@ -1,18 +1,12 @@
-<?php 
-  $login = htmlspecialchars( $_POST['login'] );
-  $entrar = $_POST['entrar'];
-  $senha = md5($_POST['senha']);
-  $connect = mysql_connect('localhost','root','');
-  $db = mysql_select_db('eve_aventuras_php');
-    if (isset($entrar)) {
-            
-      $verifica = mysql_query("SELECT * FROM ap_usuarios WHERE login = '$login' AND senha = '$senha'") or die("erro ao selecionar");
-        if (mysql_num_rows($verifica)<=0){
-          echo"<script language='javascript' type='text/javascript'>alert('Login e/ou senha incorretos');window.location.href='login.html';</script>";
-          die();
-        }else{
-          setcookie("login",$login);
-          header("Location:index.php");
-        }
-    }
-?>
+<html>
+  <head>
+    <title>Sistema de Login</title>
+  </head>
+  <body>
+    <form name="loginform" method="post" action="userauthentication.php">
+      E-mail: <input type="text" name="email"><br><br>
+      Senha: <input type="password" name="senha"><br><br>
+      <input type="submit" value="Entrar">
+    </form>
+  </body>
+</html>
