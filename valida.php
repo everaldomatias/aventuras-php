@@ -14,6 +14,7 @@
   			// Pesquisar o usuário no BD
   			$result_usuario = "SELECT id, nome, email, senha FROM usuarios WHERE usuario='$usuario' LIMIT 1";
   			$resultado_usuario = mysqli_query( $conexao, $result_usuario );
+
   			if ( $resultado_usuario ) {
   				$row_usuario = mysqli_fetch_assoc( $resultado_usuario );
   				if ( password_verify( $senha, $row_usuario['senha'] ) ) {
@@ -25,7 +26,10 @@
   					$_SESSION['msg'] = "Login e/ou senha incorretos";
   					header("Location: login.php");
   				}
-  			}
+  			} else {
+          $_SESSION['msg'] = "Dados não encontrados no banco de dados";
+          header("Location: login.php");
+        }
 
   		} else {
   			$_SESSION['msg'] = "Login e/ou senha incorretos";
