@@ -1,12 +1,27 @@
-<html>
-  <head>
-    <title>Sistema de Login</title>
-  </head>
-  <body>
-    <form name="loginform" method="post" action="userauthentication.php">
-      E-mail: <input type="text" name="email"><br><br>
-      Senha: <input type="password" name="senha"><br><br>
-      <input type="submit" value="Entrar">
-    </form>
-  </body>
+<?php
+  	session_start();
+?>
+<!DOCTYPE html>
+<html lang="pt-br">
+	<head>
+		<meta charset="utf-8">
+		<title>Aventuras - Login</title>
+	</head>
+	<body>
+		<h2>Área restrita</h2>
+		<?php
+		  	if (isset( $_SESSION['msg'] ) ) {  
+		  		echo $_SESSION['msg'];
+		  		unset( $_SESSION['msg'] );
+		  	}
+		?>
+		<form action="valida.php" method="POST">
+			<label for="">Usuário</label>
+			<input type="text" name="usuario" placeholder="Digite o seu usuário"><br><br>
+			<label for="">Senha</label>
+			<input type="password" name="senha" placeholder="Digite a sua senha"><br><br>
+
+			<input type="submit" name="btnLogin" value="Acessar">
+		</form>
+	</body>
 </html>
