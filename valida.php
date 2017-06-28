@@ -21,7 +21,7 @@
   					$_SESSION['id'] = $row_usuario['id'];
   					$_SESSION['nome'] = $row_usuario['nome'];
   					$_SESSION['email'] = $row_usuario['email'];
-  					header("Location: administrativo.php");
+  					header("Location: cadastro.php");
   				} else {
   					$_SESSION['msg'] = "Login e/ou senha incorretos";
   					header("Location: login.php");
