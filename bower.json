@@ -1,0 +1,27 @@
+{
+  "name": "aventuras-php",
+  "description": "aventuras e aprendizado com PHP no pêlo :P",
+  "main": "assets/scripts/custom.js",
+  "keywords": [
+    "aventuras",
+    "php",
+    "tutoriais",
+    "autodidata"
+  ],
+  "authors": [
+    "Everaldo Matias https://everaldomatias.github.io"
+  ],
+  "license": "GPL2",
+  "homepage": "https:github.com/everaldomatias/aventuras-php",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "jquery": "^3.2.1"
+  }
+}
