@@ -7,18 +7,15 @@
   		$_SESSION['msg'] = "Área restrita";
   		header("Location: login.php");
   	}
-  	include_once( "inc/config.php" );
+
+  	// Required Settings
+  	include_once( "inc/settings.php" );
+
+  	// Header
+  	get_header();
 ?>
 
-<!DOCTYPE html>
-<html lang="pt-br">
-	<head>
-		<title>Cadastro de Itens</title>
-		<script src="js/jquery-3.2.1.min.js" type="text/javascript"></script>
-		<script src="js/jquery.maskMoney.min.js" type="text/javascript"></script>
-		<script src="js/custom.js" type="text/javascript"></script>
-	</head>
-	<body>
+
 		
 		<form action="" method="POST" enctype="multipart/form-dara">
 			<label for="">Data</label>
