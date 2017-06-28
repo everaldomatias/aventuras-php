@@ -6,7 +6,9 @@
 <html lang="pt-br">
 	<head>
 		<title>Cadastro de Itens</title>
-		<script type="text/javascript" src="mask.js"></script>
+		<script src="js/jquery-3.2.1.min.js" type="text/javascript"></script>
+		<script src="js/jquery.maskMoney.min.js" type="text/javascript"></script>
+		<script src="js/custom.js" type="text/javascript"></script>
 	</head>
 	<body>
 		
@@ -15,8 +17,8 @@
 			<input type="text" onKeyUp="formataData(this);" name="data" placeholder="Data"><br><br>
 			<label for="">Descrição</label>
 			<input type="text" name="descricao" placeholder="Descrição"><br><br>
-			<label for="">Valor</label>
-			<input type="text" name="valor" placeholder="Valor"><br><br>
+			<label for="">Valor (R$): </label>
+			<input type="text" name="valor" id="valor" placeholder="Valor"><br><br>
 			<label for="">KM</label>
 			<input type="number" name="km" placeholder="Kilometragem"><br><br>
 			<label for="">Natureza de Item</label>
