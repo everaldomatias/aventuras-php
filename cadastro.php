@@ -18,7 +18,7 @@
 			<label for="">Valor</label>
 			<input type="text" name="valor" placeholder="Valor"><br><br>
 			<label for="">KM</label>
-			<input type="text" name="km" placeholder="Kilometragem"><br><br>
+			<input type="number" name="km" placeholder="Kilometragem"><br><br>
 			<label for="">Natureza de Item</label>
 			<select name="tipo" id="">
 				<option value="estetica">Estética/Melhorias</option>
@@ -40,11 +40,12 @@
 				$descricao =	filter_input( INPUT_POST, 'descricao' );
 				$valor =		filter_input( INPUT_POST, 'valor' );
 				$km =			filter_input( INPUT_POST, 'km' );
+				$km =			preg_replace( '/[^0-9]/', '', $km );
 				$tipo =			filter_input( INPUT_POST, 'tipo' );
 				
 				// Verifica se os campos estão vazios
 				if ( empty($data) || empty($descricao) || empty($valor) || empty($km) || empty($tipo) ) {
-					echo "Preencha todos os campos";
+					echo "Por favor preencha todos os campos para prosseguir.";
 				} else {
 					$cadastrar = "INSERT INTO cadastros (`data`, `descricao`, `valor`, `km`, `tipo`) VALUES ('$data', '$descricao', '$valor', '$km', '$tipo')";
 					if (mysqli_query($conexao, $cadastrar)) {
