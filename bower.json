@@ -1,18 +1,16 @@
 {
   "name": "aventuras-php",
-  "description": "aventuras e aprendizado com PHP no pêlo :P",
+  "authors": [
+    "Everaldo Matias <everaldo@brasa.art.br>"
+  ],
+  "description": "aventuras e aprendizado com o PHP no pêlo :P",
   "main": "assets/scripts/custom.js",
   "keywords": [
-    "aventuras",
     "php",
-    "tutoriais",
-    "autodidata"
-  ],
-  "authors": [
-    "Everaldo Matias https://everaldomatias.github.io"
+    "learn"
   ],
   "license": "GPL2",
-  "homepage": "https:github.com/everaldomatias/aventuras-php",
+  "homepage": "https://github.com/everaldomatias/aventuras-php",
   "private": true,
   "ignore": [
     "**/.*",
@@ -22,6 +20,7 @@
     "tests"
   ],
   "dependencies": {
-    "jquery": "^3.2.1"
+    "jquery": "^3.2.1",
+    "less": "less.js#^2.7.2"
   }
 }
