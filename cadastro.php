@@ -28,9 +28,9 @@
 			<input type="number" name="km" placeholder="Kilometragem"><br><br>
 			<label for="">Natureza de Item</label>
 			<select name="tipo" id="">
-				<option value="estetica">Estética/Melhorias</option>
-				<option value="manutencao">Manutenção Preventiva</option>
-				<option value="emergencial">Man. Emergencial</option>
+				<option value="interior">Interior</option>
+				<option value="lataria">Lataria</option>
+				<option value="mecanica">Mecânica</option>
 			</select>
 			<input type="submit" name="btnCadastro" value="Cadastrar">
 			<input type="hidden" name="cadastrar" value="register">
