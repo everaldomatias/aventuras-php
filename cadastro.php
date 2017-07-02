@@ -19,21 +19,6 @@
   	get_header();
 ?>
 
-<div class="col-group">
-	<article class="col-12 col-dt-4 col-dt-offset-0">
-		<div class="col-group">
-			<div class="col-6">
-				…
-			</div>
-			<div class="col-6">
-				…
-			</div>
-		</div>
-	</article>
-	<aside class="col-4 col-dt-8">
-		…
-	</aside>
-</div>
 <form action="" method="POST" enctype="multipart/form-dara">
 	<label for="">Data</label>
 	<input type="text" onKeyUp="formataData(this);" name="data" placeholder="Data"><br><br>
