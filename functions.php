@@ -13,3 +13,8 @@
 			return;
 		}		
 	}
+
+	function get_document_title() {
+		global $document_title;
+		echo $document_title;
+	}
