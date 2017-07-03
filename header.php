@@ -90,6 +90,9 @@
 	                        <a href="cadastro.php"><i class="fa fa-fw fa-edit"></i> Cadastro</a>
 	                    </li>
 	                    <li>
+	                        <a href="configuracoes.php"><i class="fa fa-fw fa-cogs"></i> Configurações</a>
+	                    </li>
+	                    <li>
 	                        <a href="tables.html"><i class="fa fa-fw fa-table"></i> Tables</a>
 	                    </li>
 	                    <li>
