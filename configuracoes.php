@@ -1,5 +1,6 @@
 <?php
 	session_start();
+
   	if ( empty( $_SESSION['id'] )  ) {
   		$_SESSION['msg'] = "Área restrita";
   		header("Location: login.php");
@@ -15,8 +16,30 @@
   	// Header
   	get_header();
 
+  	// Query para verificar se os dados foram cadastrados ($iniciado = true)
+  	$sql = "SELECT `ID`, `km_inicial`, `data_inicial`, `valor_compra` FROM `configuracoes`";
+	$query = $conexao->query( $sql );
+
+	if ( $query->num_rows == 1 ) {
+		$iniciado = true;
+		while ( $dados = $query->fetch_array() ) {
+			$item_id = 				$dados['ID'];
+			$item_km_inicial = 		$dados['km_inicial'];
+			$item_data_inicial = 	$dados['data_inicial'];
+			$item_data_inicial = 	explode( '-', $item_data_inicial );
+			$item_data_inicial = 	array_reverse( $item_data_inicial );
+			$item_data_inicial =	implode( '/', $item_data_inicial );
+			$item_valor_compra = 	$dados['valor_compra'];
+		}
+	} else {
+		$iniciado = false;
+	}
+			
+	// Fecha a conexão com o banco de dados
+	//mysqli_close( $mysqli );
+
 	// Tratamento do formulário
-	if ( isset( $_POST['editar'] ) && $_POST['editar'] == "register" ) {
+	if ( isset( $_POST['editar'] ) && $_POST['editar'] == "register" && isset( $iniciado ) ) {
 		
 		// Valores dos campos
 		$data_inicial =			filter_input( INPUT_POST, 'data_inicial' );
@@ -32,13 +55,15 @@
 			$_SESSION['msg_cadastro'] = '<div class="col-lg-12 alert alert-warning">Por favor preencha todos os campos para prosseguir.</div>';
 		} else {
 			$cadastrar = "INSERT INTO configuracoes (`km_inicial`, `data_inicial`, `valor_compra`) VALUES ('$km_inicial','$data_inicial', '$valor_compra')";
-			if (mysqli_query($conexao, $cadastrar)) {
+			if ( mysqli_query( $conexao, $cadastrar ) ) {
 				$_SESSION['msg_cadastro'] = '<div class="col-lg-12 alert alert-success"><strong>Pronto.</strong> Seu item foi cadastrado com sucesso.</div>';
 			} else {
 				$_SESSION['msg_cadastro'] = '<div class="col-lg-12 alert alert-danger"><strong>Erro ao cadastrar.</strong> Tente novamente.</div>';
 			}
-
 		}
+
+	} elseif( isset( $_POST['editar'] ) && $_POST['editar'] == "edit" && isset( $iniciado ) ) {
+		die('certinho');
 
 	} else {
 		$_SESSION['msg_cadastro'] = '';
@@ -54,14 +79,14 @@
 			        <div class="row">
 			            <div class="col-lg-12">
 			                <h1 class="page-header">
-			                    Configurações <small>gerais</small>
+			                    <?php echo $document_title; ?> <small>gerais</small>
 			                </h1>
 			                <ol class="breadcrumb">
 		                        <li>
 		                            <i class="fa fa-dashboard"></i>  <a href="index.html">Painel</a>
 		                        </li>
 		                        <li class="active">
-		                            <i class="fa fa-cogs"></i> Configurações
+		                            <i class="fa fa-cogs"></i> <?php echo $document_title; ?>
 		                        </li>
 		                    </ol>
 			            </div>
@@ -70,30 +95,20 @@
 
 		        	
 		        	<?php
+		        	  	// Caso tenha alguma mensagem ao enviar o form, exibe aqui
 		        	  	if ( !empty( $_SESSION['msg_cadastro'] ) ) {
 		        	  		echo $_SESSION['msg_cadastro'];
 		        	  	}
-		        	  	
-					  	//$mysqli = new mysqli( $host, $user, $pass, $banco ) or die( "ERROR : " . mysqli_error() );
-					  	$sql = "SELECT `ID`, `km_inicial`, `data_inicial`, `valor_compra` FROM `configuracoes`";
-						$query = $conexao->query( $sql );
 
-						if ( $query->num_rows == 1 ) {
-							$iniciado = true;
-							while ( $dados = $query->fetch_array() ) {
-								$item_id = 				$dados['ID'];
-								$item_km_inicial = 		$dados['km_inicial'];
-								$item_data_inicial = 	$dados['data_inicial'];
-								$item_data_inicial = 	explode( '-', $item_data_inicial );
-								$item_data_inicial = 	array_reverse( $item_data_inicial );
-								$item_data_inicial =	implode( '/', $item_data_inicial );
-								$item_valor_compra = 	$dados['valor_compra'];
-							}
-						}
-								
-						mysqli_close( $mysqli );
-		
-		        	?>
+		        	  	// Debug
+		        	  	var_dump($_POST);
+		        	  	echo "<br>";
+		        	  	if ($iniciado) {
+		        	  		echo "Iniciado";
+		        	  	} else {
+		        	  		echo "Não iniciado";
+		        	  	}
+					?>
 
 		        	<div class="row">
 
@@ -133,7 +148,12 @@
 			                    </div>
 
 			                    <input type="submit" class="btn btn-success" name="btnSalvarConfigs" value="Salvar">
-								<input type="hidden" name="editar" value="register">
+								<?php if ( $iniciado == true ) : ?>
+									<input type="hidden" name="editar" value="edit">
+								<?php else: ?>
+									<input type="hidden" name="editar" value="register">
+								<?php endif; ?>								
+								
 								<button type="reset" class="btn btn-default">Limpar formulário</button>
 
 			                </form>
