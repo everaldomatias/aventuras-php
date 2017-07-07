@@ -68,7 +68,7 @@
   	$sql = "SELECT `ID`, `km_inicial`, `data_inicial`, `valor_compra` FROM `configuracoes`";
 	$query = $conexao->query( $sql );
 
-	if ( $query->num_rows >= 1 ) {
+	if ( $query && $query->num_rows >= 1 ) {
 		$iniciado = true;
 		while ( $dados = $query->fetch_array() ) {
 			$item_id = 				$dados['ID'];
