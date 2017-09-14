@@ -28,16 +28,19 @@
 		$valor_compra =			filter_input( INPUT_POST, 'valor_compra' );
 		$km_inicial =			filter_input( INPUT_POST, 'km_inicial' );
 		$km_inicial =			preg_replace( '/[^0-9]/', '', $km_inicial );
+		$km_final =				filter_input( INPUT_POST, 'km_final' );
+		$km_final =				preg_replace( '/[^0-9]/', '', $km_final );
 		
 		// Verifica se os campos estão vazios
 		if ( empty( $data_inicial ) || empty( $valor_compra ) || empty( $km_inicial ) ) {
 			$_SESSION['msg_configuracoes'] = '<div class="col-lg-12 alert alert-warning">Por favor preencha todos os campos para prosseguir.</div>';
 		} else {
-			$cadastrar = "INSERT INTO configuracoes (`km_inicial`, `data_inicial`, `valor_compra`) VALUES ('$km_inicial','$data_inicial', '$valor_compra')";
+			$cadastrar = "INSERT INTO configuracoes (`km_inicial`, `km_final`, `data_inicial`, `valor_compra`) VALUES ('$km_inicial', '$km_final', '$data_inicial', '$valor_compra')";
 			if ( mysqli_query( $conexao, $cadastrar ) ) {
 				$_SESSION['msg_configuracoes'] = '<div class="col-lg-12 alert alert-success"><strong>Pronto.</strong> Seu item foi cadastrado com sucesso.</div>';
 			} else {
 				$_SESSION['msg_configuracoes'] = '<div class="col-lg-12 alert alert-danger"><strong>Erro ao cadastrar.</strong> Tente novamente.</div>';
+				var_dump($conexao);
 			}
 		}
 
@@ -51,8 +54,10 @@
 		$valor_compra =			filter_input( INPUT_POST, 'valor_compra' );
 		$km_inicial =			filter_input( INPUT_POST, 'km_inicial' );
 		$km_inicial =			preg_replace( '/[^0-9]/', '', $km_inicial );
+		$km_final =				filter_input( INPUT_POST, 'km_final' );
+		$km_final =				preg_replace( '/[^0-9]/', '', $km_final );
 
-		$editar = "UPDATE configuracoes SET km_inicial = '$km_inicial', data_inicial = '$data_inicial', valor_compra = '$valor_compra' WHERE ID = 1 AND (km_inicial <> '$km_inicial' OR data_inicial <> '$data_inicial' OR valor_compra <> '$valor_compra')";
+		$editar = "UPDATE configuracoes SET km_inicial = '$km_inicial', km_final = '$km_final', data_inicial = '$data_inicial', valor_compra = '$valor_compra' WHERE ID = 1 AND (km_inicial <> '$km_inicial' OR km_final <> '$km_final' OR data_inicial <> '$data_inicial' OR valor_compra <> '$valor_compra')";
 
 		if ( mysqli_query( $conexao, $editar ) ) {
 			$_SESSION['msg_configuracoes'] = '<div class="col-lg-12 alert alert-success"><strong>Pronto.</strong> Seu item foi atualizado com sucesso.</div>';
@@ -65,7 +70,7 @@
 	}
 
   	// Query para verificar se os dados foram cadastrados ($iniciado = true)
-  	$sql = "SELECT `ID`, `km_inicial`, `data_inicial`, `valor_compra` FROM `configuracoes`";
+  	$sql = "SELECT `ID`, `km_inicial`, `km_final`, `data_inicial`, `valor_compra` FROM `configuracoes`";
 	$query = $conexao->query( $sql );
 
 	if ( $query && $query->num_rows >= 1 ) {
@@ -73,6 +78,7 @@
 		while ( $dados = $query->fetch_array() ) {
 			$item_id = 				$dados['ID'];
 			$item_km_inicial = 		$dados['km_inicial'];
+			$item_km_final = 		$dados['km_final'];
 			$item_data_inicial = 	$dados['data_inicial'];
 			$item_data_inicial = 	explode( '-', $item_data_inicial );
 			$item_data_inicial = 	array_reverse( $item_data_inicial );
@@ -122,7 +128,7 @@
 			                <form role="form" action="" method="POST" enctype="multipart/form-dara">
 
 			                    <div class="form-group">
-			                        <label>Data</label>
+			                        <label>Data de aquisição do veículo</label>
 			                        <?php if ( ! empty( $item_data_inicial ) ) : ?>
 										<input class="form-control" type="text" onKeyUp="formataData(this);" name="data_inicial" value="<?php echo $item_data_inicial; ?>">
 			                        <?php else: ?>
@@ -131,16 +137,25 @@
 			                    </div>
 
 			                    <div class="form-group">
-			                        <label>KM</label>
+			                        <label>Kilometragem registrada na data de aquisição do veículo</label>
 			                        <?php if ( ! empty( $item_km_inicial ) ) : ?>
 			                        	<input class="form-control" type="number" name="km_inicial" value="<?php echo $item_km_inicial; ?>">
 			                        <?php else: ?>
 			                        	<input class="form-control" type="number" name="km_inicial" placeholder="Kilometragem">
 			                    	<?php endif; ?>
-			                    </div>			                    
+			                    </div>
 
 			                    <div class="form-group">
-			                    	<label for="valor">Valor</label>
+			                        <label>KM mais alta registrada até o momento</label>
+			                        <?php if ( ! empty( $item_km_final ) ) : ?>
+			                        	<input class="form-control" type="number" name="km_final" value="<?php echo $item_km_final; ?>" disabled>
+			                        <?php else: ?>
+			                        	<input class="form-control" type="number" name="km_final" placeholder="Kilometragem">
+			                    	<?php endif; ?>
+			                    </div>	
+
+			                    <div class="form-group">
+			                    	<label for="valor">Valor de compra do veículo</label>
 								    <div class="input-group">
 								     	<div class="input-group-addon">R$</div>
 								     	<?php if ( ! empty( $item_valor_compra ) ) : ?>
@@ -162,6 +177,8 @@
 								<button type="reset" class="btn btn-default">Limpar formulário</button>
 
 			                </form>
+
+			                <?php get_option( 'ID' ); ?>
 
 			            </div>
 
