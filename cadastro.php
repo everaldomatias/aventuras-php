@@ -85,7 +85,7 @@
 
 			                    <div class="form-group">
 			                        <label>Data</label>
-			                        <input class="form-control" type="text" onKeyUp="formataData(this);" name="data" placeholder="Data">
+			                        <input class="form-control" type="text" onKeyUp="formataData(this);" name="data" value="<?php echo date( 'd/m/Y' ) ?>" placeholder="Data">
 			                    </div>
 
 			                    <div class="form-group">
