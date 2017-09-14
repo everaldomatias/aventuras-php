@@ -21,10 +21,15 @@
 
 	function get_option( $value ) {
 		global $conexao;
-		//$sql = "SELECT $value FROM `configuracoes` WHERE $value = 1";
-		$sql = "SELECT * FROM `configuracoes` WHERE `$value` = 1";
-		$query = $conexao->query( $sql );
-		$query = $conexao->mysqli_fetch_field_direct( 1 );
 		
-		var_dump($query);
+		// SQL
+		$result = mysqli_query( $conexao, "SELECT `$value` FROM `configuracoes` WHERE id = 1" );
+
+		// If the query completed without errors, fetch a result
+		if ( $result ) {
+		  $row = mysqli_fetch_assoc( $result );
+		  return $row[ $value ];
+		}
+		// Otherwise display the error
+		else return "An error occurred: " . mysqli_error( $conexao );
 	}

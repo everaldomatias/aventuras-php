@@ -178,8 +178,6 @@
 
 			                </form>
 
-			                <?php get_option( 'ID' ); ?>
-
 			            </div>
 
 			        </div>
