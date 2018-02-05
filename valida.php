@@ -3,16 +3,17 @@
 	include_once( "inc/config.php" );
   	$btnLogin = filter_input( INPUT_POST, 'btnLogin', FILTER_SANITIZE_STRING );
   	if ( $btnLogin ) {
+
   		$usuario = filter_input( INPUT_POST, 'usuario', FILTER_SANITIZE_STRING );
   		$senha = filter_input( INPUT_POST, 'senha', FILTER_SANITIZE_STRING );
 
-  		if( ( !empty( $usuario ) ) AND ( !empty( $senha ) ) ) {
-
-  			// Gerar senha criptografada
+  		if ( !empty( $usuario ) && !empty( $senha ) )  {
+  			
+        // Gerar senha criptografada
   			//echo password_hash( $senha, PASSWORD_DEFAULT );
 
   			// Pesquisar o usuário no BD
-  			$result_usuario = "SELECT id, nome, email, senha FROM usuarios WHERE usuario='$usuario' LIMIT 1";
+  			$result_usuario = "SELECT id, nome, email, senha FROM usuarios WHERE nome='$usuario' LIMIT 1";
   			$resultado_usuario = mysqli_query( $conexao, $result_usuario );
 
   			if ( $resultado_usuario ) {

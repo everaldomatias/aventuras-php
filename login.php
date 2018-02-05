@@ -10,6 +10,7 @@
 	<body>
 		<h2>Área restrita</h2>
 		<?php
+		//echo password_hash( '826414', PASSWORD_DEFAULT );
 		  	if (isset( $_SESSION['msg'] ) ) {  
 		  		echo $_SESSION['msg'];
 		  		unset( $_SESSION['msg'] );
