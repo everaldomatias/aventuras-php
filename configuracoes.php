@@ -54,10 +54,8 @@
 		$valor_compra =			filter_input( INPUT_POST, 'valor_compra' );
 		$km_inicial =			filter_input( INPUT_POST, 'km_inicial' );
 		$km_inicial =			preg_replace( '/[^0-9]/', '', $km_inicial );
-		$km_final =				filter_input( INPUT_POST, 'km_final' );
-		$km_final =				preg_replace( '/[^0-9]/', '', $km_final );
 
-		$editar = "UPDATE configuracoes SET km_inicial = '$km_inicial', km_final = '$km_final', data_inicial = '$data_inicial', valor_compra = '$valor_compra' WHERE ID = 1 AND (km_inicial <> '$km_inicial' OR km_final <> '$km_final' OR data_inicial <> '$data_inicial' OR valor_compra <> '$valor_compra')";
+		$editar = "UPDATE configuracoes SET km_inicial = '$km_inicial', data_inicial = '$data_inicial', valor_compra = '$valor_compra' WHERE ID = 1 AND (km_inicial <> '$km_inicial' OR km_final <> '$km_final' OR data_inicial <> '$data_inicial' OR valor_compra <> '$valor_compra')";
 
 		if ( mysqli_query( $conexao, $editar ) ) {
 			$_SESSION['msg_configuracoes'] = '<div class="col-lg-12 alert alert-success"><strong>Pronto.</strong> Seu item foi atualizado com sucesso.</div>';
@@ -148,7 +146,7 @@
 			                    <div class="form-group">
 			                        <label>KM mais alta registrada até o momento</label>
 			                        <?php if ( ! empty( $item_km_final ) ) : ?>
-			                        	<input class="form-control" type="number" name="km_final" value="<?php echo $item_km_final; ?>" disabled>
+			                        	<input class="form-control" type="number" name="km_final" value="<?php echo $item_km_final; ?>">
 			                        <?php else: ?>
 			                        	<input class="form-control" type="number" name="km_final" placeholder="Kilometragem">
 			                    	<?php endif; ?>
@@ -163,7 +161,6 @@
 								      	<?php else: ?>
 								      		<input type="text" name="valor_compra" class="form-control" id="valor" placeholder="Valor">
 								      	<?php endif; ?>
-
 								    </div>
 			                    </div>
 
@@ -192,7 +189,7 @@
 		</div>
 		    <!-- /#wrapper -->
 
-	<?php mysqli_close($conexao); ?>
+	<?php mysqli_close( $conexao ); ?>
 
 	</body>
 </html>
