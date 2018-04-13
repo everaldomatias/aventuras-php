@@ -52,6 +52,7 @@
 	                                        <th>Valor</th>
 	                                        <th>KM</th>
 	                                        <th>Natureza</th>
+	                                        <th></th>
 	                                    </tr>
 	                                </thead>
 	                                <tbody>
@@ -62,17 +63,22 @@
 
 										if ( $query->num_rows >= 1 ) {
 											while ( $dados = mysqli_fetch_assoc( $query ) ) {
+												$id = $dados['id'];
+												$data = explode( '-', $dados['data'] );
+												$data = array_reverse( $data );
+												$data = implode( '/', $data );
 												echo '<tr>';
-												echo '<td>' . $dados['id'] . '</td>';
-												echo '<td>' . $dados['data'] . '</td>';
+												echo '<td>' . $id . '</td>';
+												echo '<td>' . $data . '</td>';
 												echo '<td>' . $dados['descricao'] . '</td>';
-												echo '<td>' . $dados['valor'] . '</td>';
+												echo '<td>R$ ' . $dados['valor'] . '</td>';
 												echo '<td>' . $dados['km'] . '</td>';
-												echo '<td>' . $dados['tipo'] . '</td>';
+												echo '<td>' . ucwords( $dados['tipo'] ) . '</td>';
+												echo '<td><button class="btn btn-danger delete" id="del_'. $id .'">x</button></td>';
 												echo '</tr>';
 											}
 										} else {
-										
+											echo 'It´s bad.';									
 										}
 	                                	?>
 	                                </tbody>
@@ -80,17 +86,9 @@
 	                        </div>
 	                    </div>
 
-			        </div>
-			        <!-- /.row -->
-
-			    </div>
-			    <!-- /.container-fluid -->
-
-			</div>
-			<!-- /#page-wrapper -->
-
-		</div>
-		<!-- /#wrapper -->
-
+			        </div><!-- /.row -->
+			    </div><!-- /.container-fluid -->
+			</div><!-- /#page-wrapper -->
+		</div><!-- /#wrapper -->
 	</body>
 </html>

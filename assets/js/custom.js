@@ -73,3 +73,32 @@ function formataData(val)
 $(function(){
 	$("#valor").maskMoney({symbol:'R$ ', showSymbol:true, thousands:'.', decimal:',', symbolStay: true});
 })
+
+$(document).ready(function(){
+
+	// Apagar Registro
+	$('.delete').click(function(){
+		var el = this;
+		var id = this.id;
+		var splitid = id.split("_");
+
+		// Delete id
+		var deleteid = splitid[1];
+ 
+		// AJAX Request
+		$.ajax({
+			url: 'remove.php',
+			type: 'POST',
+			data: { id:deleteid },
+			success: function(response){
+
+			    // Remove linha do HTML de Registros
+			    $(el).closest('tr').css('background','tomato');
+			    $(el).closest('tr').fadeOut(800, function(){ 
+			    	$(this).remove();
+			    });
+
+			}
+		});
+	});
+});
